@@ -1,0 +1,140 @@
+                                               # Task 1 – Start of the day
+
+
+# Initialize data structures to total passengers and money for each train journey
+total_passengers_up = [0, 0, 0, 0]
+total_passengers_down = [0, 0, 0, 0]
+total_money_up = [0, 0, 0, 0]
+total_money_down = [0, 0, 0, 0]
+
+# Display the initial screen
+print("\n===== Electric Mountain Railway - Start of the Day =====")
+print("Train Schedule:")
+print("09:00 AM - Up | 10:00 AM - Down")
+print("11:00 AM - Up | 12:00 PM - Down")
+print("01:00 PM - Up | 02:00 PM - Down")
+print("03:00 PM - Up | 04:00 PM - Down")
+
+
+
+
+                                                    # Task 2 – Purchasing tickets
+
+
+# Initialize variables
+ticket_price_up = 25.00  # Cost for the journey up
+ticket_price_down = 25.00  # Cost for the journey down
+num_coaches = 6
+seats_per_coach = 80
+group_discount_threshold = 10
+
+# Function to calculate the total price for a group with a group discount
+def calculate_group_price(num_tickets):
+    num_free_tickets = num_tickets // group_discount_threshold
+    total_price = (num_tickets - num_free_tickets) * ticket_price_up
+    return total_price
+
+# Function to display the available seats for a specific train
+def display_available_seats(train_index, seats_available):
+    if seats_available > 0:
+        print(f"\nTrain at {train_times[train_index]}: {seats_available} seats available")
+    else:
+        print(f"\nTrain at {train_times[train_index]}: Closed")
+
+# Function to purchase tickets
+def purchase_tickets(train_index, is_up_train):
+    global total_passengers_up, total_passengers_down, total_money_up, total_money_down
+
+    print(f"\n===== Purchasing Tickets for {train_times[train_index]} =====")
+
+    # Get the number of passengers
+    num_passengers = int(input("Enter the number of passengers: "))
+
+    # Calculate the total price
+    if is_up_train:
+        total_price = calculate_group_price(num_passengers) if num_passengers >= group_discount_threshold else num_passengers * ticket_price_up
+        total_passengers_up[train_index] += num_passengers
+        total_money_up[train_index] += total_price
+    else:
+        total_price = num_passengers * ticket_price_down
+        total_passengers_down[train_index] += num_passengers
+        total_money_down[train_index] += total_price
+
+    # Display the total price and update available seats
+    print(f"Total Price: ${total_price:.2f}")
+    display_available_seats(train_index, seats_per_coach * num_coaches - num_passengers)
+
+# Train schedule
+train_times = ["09:00 AM", "11:00 AM", "01:00 PM", "03:00 PM"]
+
+# Simulate ticket purchases for each train
+for i in range(len(train_times)):
+    # Display available seats for the up train
+    display_available_seats(i, seats_per_coach * num_coaches - total_passengers_up[i])
+
+    # Purchase tickets for the up train
+    purchase_tickets(i, True)
+
+    # Display available seats for the down train
+    display_available_seats(i, seats_per_coach * num_coaches - total_passengers_down[i])
+
+    # Purchase tickets for the down train
+    purchase_tickets(i, False)
+
+
+
+
+
+                                           # Task 3 – End of the day
+
+
+# Function to display the results for each train journey
+def display_train_results(train_index, is_up_train):
+    global total_passengers_up, total_passengers_down, total_money_up, total_money_down
+
+    print(f"\n===== Results for {train_times[train_index]} =====")
+    if is_up_train:
+        print("Journey: Up")
+        print(f"Total Passengers: {total_passengers_up[train_index]}")
+        print(f"Total Money: ${total_money_up[train_index]:.2f}")
+    else:
+        print("Journey: Down")
+        print(f"Total Passengers: {total_passengers_down[train_index]}")
+        print(f"Total Money: ${total_money_down[train_index]:.2f}")
+
+# Function to find the train journey with the most passengers
+def find_max_passengers():
+    global total_passengers_up, total_passengers_down
+
+    max_passengers_up = max(total_passengers_up)
+    max_passengers_down = max(total_passengers_down)
+
+    max_up_index = total_passengers_up.index(max_passengers_up)
+    max_down_index = total_passengers_down.index(max_passengers_down)
+
+    print("\n===== Train Journey with the Most Passengers =====")
+    if max_passengers_up >= max_passengers_down:
+        print(f"Train at {train_times[max_up_index]} (Up) with {max_passengers_up} passengers")
+    else:
+        print(f"Train at {train_times[max_down_index]} (Down) with {max_passengers_down} passengers")
+
+# Display results for each train journey
+for i in range(len(train_times)):
+    # Display results for the up train
+    display_train_results(i, True)
+
+    # Display results for the down train
+    display_train_results(i, False)
+
+# Calculate and display total number of passengers and total amount of money for the day
+total_passengers_day = sum(total_passengers_up) + sum(total_passengers_down)
+total_money_day = sum(total_money_up) + sum(total_money_down)
+
+print("\n===== Overall Results for the Day =====")
+print(f"Total Passengers for the Day: {total_passengers_day}")
+print(f"Total Money for the Day: ${total_money_day:.2f}")
+
+# Find and display the train journey with the most passengers for the day
+find_max_passengers()
+
+                                                       # finished
