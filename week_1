@@ -1,0 +1,191 @@
+                               # Task 1 – Setting up the system and ordering the main items
+
+
+# Define arrays to store item code, description, and price
+case_items = ["A1", "A2"]
+case_descriptions = ["Compact", "Tower"]
+case_prices = [75.00, 150.00]
+
+ram_items = ["B1", "B2", "B3"]
+ram_descriptions = ["8 GB", "16 GB", "32 GB"]
+ram_prices = [79.99, 149.99, 299.99]
+
+hdd_items = ["C1", "C2", "C3"]
+hdd_descriptions = ["1 TB HDD", "2 TB HDD", "4 TB HDD"]
+hdd_prices = [49.99, 89.99, 129.99]
+
+# Basic set of components cost
+basic_components_cost = 200.00
+
+# Gather user input for main items
+print("Welcome to the Online Computer Shop!")
+print("Choose a case:")
+for i in range(len(case_items)):
+    print(f"{case_items[i]} - {case_descriptions[i]} - ${case_prices[i]}")
+
+chosen_case = input("Enter the item code of your chosen case: ")
+
+# Validate input for case
+while chosen_case not in case_items:
+    print("Invalid item code. Please try again.")
+    chosen_case = input("Enter the item code of your chosen case: ")
+
+# Gather user input for RAM
+print("\nChoose RAM:")
+for i in range(len(ram_items)):
+    print(f"{ram_items[i]} - {ram_descriptions[i]} - ${ram_prices[i]}")
+
+chosen_ram = input("Enter the item code of your chosen RAM: ")
+
+# Validate input for RAM
+while chosen_ram not in ram_items:
+    print("Invalid item code. Please try again.")
+    chosen_ram = input("Enter the item code of your chosen RAM: ")
+
+# Gather user input for HDD
+print("\nChoose Hard Disk Drive:")
+for i in range(len(hdd_items)):
+    print(f"{hdd_items[i]} - {hdd_descriptions[i]} - ${hdd_prices[i]}")
+
+chosen_hdd = input("Enter the item code of your chosen Hard Disk Drive: ")
+
+# Validate input for HDD
+while chosen_hdd not in hdd_items:
+    print("Invalid item code. Please try again.")
+    chosen_hdd = input("Enter the item code of your chosen Hard Disk Drive: ")
+
+# Calculate the price of the computer with the chosen main items
+total_price = basic_components_cost + case_prices[case_items.index(chosen_case)] + \
+              ram_prices[ram_items.index(chosen_ram)] + hdd_prices[hdd_items.index(chosen_hdd)]
+
+# Output the chosen items and the price
+print("\nChosen Items:")
+print(f"Case: {chosen_case} - {case_descriptions[case_items.index(chosen_case)]}")
+print(f"RAM: {chosen_ram} - {ram_descriptions[ram_items.index(chosen_ram)]}")
+print(f"HDD: {chosen_hdd} - {hdd_descriptions[hdd_items.index(chosen_hdd)]}")
+print(f"\nTotal Price: ${total_price}")
+
+
+
+                                  # Task 2 – Ordering additional items
+
+# Gather user input for additional items
+additional_items_choice = input("\nDo you want to purchase additional items? (yes/no): ").lower()
+
+if additional_items_choice == "yes":
+    # Allow the customer to choose items from other categories
+    print("\nChoose Additional Items:")
+
+    # Display options for RAM
+    print("Choose RAM:")
+    for i in range(len(ram_items)):
+        print(f"{ram_items[i]} - {ram_descriptions[i]} - ${ram_prices[i]}")
+
+    chosen_additional_ram = input("Enter the item code of your chosen additional RAM: ")
+
+    # Validate input for RAM
+    while chosen_additional_ram not in ram_items:
+        print("Invalid item code. Please try again.")
+        chosen_additional_ram = input("Enter the item code of your chosen additional RAM: ")
+
+    # Display options for HDD
+    print("\nChoose Hard Disk Drive:")
+    for i in range(len(hdd_items)):
+        print(f"{hdd_items[i]} - {hdd_descriptions[i]} - ${hdd_prices[i]}")
+
+    chosen_additional_hdd = input("Enter the item code of your chosen additional Hard Disk Drive: ")
+
+    # Validate input for HDD
+    while chosen_additional_hdd not in hdd_items:
+        print("Invalid item code. Please try again.")
+        chosen_additional_hdd = input("Enter the item code of your chosen additional Hard Disk Drive: ")
+
+    # Calculate the price with additional items
+    additional_items_price = ram_prices[ram_items.index(chosen_additional_ram)] + \
+                              hdd_prices[hdd_items.index(chosen_additional_hdd)]
+
+    # Output the chosen additional items and the new price
+    print("\nChosen Additional Items:")
+    print(f"Additional RAM: {chosen_additional_ram} - {ram_descriptions[ram_items.index(chosen_additional_ram)]}")
+    print(f"Additional HDD: {chosen_additional_hdd} - {hdd_descriptions[hdd_items.index(chosen_additional_hdd)]}")
+    print(f"\nNew Total Price: ${total_price + additional_items_price}")
+
+    # Apply discounts based on the number of additional items
+    num_additional_items = 2  # Assuming there are two additional items for testing purposes
+
+    if num_additional_items == 1:
+        discount = 0.05  # 5% discount
+    elif num_additional_items >= 2:
+        discount = 0.1  # 10% discount
+
+    # Calculate the discounted price
+    discounted_price = (total_price + additional_items_price) * (1 - discount)
+
+    # Output the amount of money saved and the final price after the discount
+    print(f"\nYou saved ${total_price + additional_items_price - discounted_price:.2f} with the discount!")
+    print(f"Final Price (after discount): ${discounted_price:.2f}")
+
+else:
+    print("Thank you for shopping with us! Your order is complete.")
+
+
+
+
+                                        # Task 3 – Offering discounts
+
+# Display the final receipt with discounts
+
+# Check if the customer has purchased additional items
+if additional_items_choice == "yes":
+    # Calculate the total number of items purchased
+    total_items_purchased = 1  # Counting the main item chosen earlier
+
+    # Ask the customer about additional items and count them
+    additional_item_choice = input("\nDo you want to purchase another additional item? (yes/no): ").lower()
+
+    while additional_item_choice == "yes":
+        total_items_purchased += 1
+        additional_item_choice = input("Enter the item code of your chosen additional item: ")
+
+    # Calculate the discounted price based on the total number of items purchased
+    if total_items_purchased == 1:
+        discount = 0.05  # 5% discount for one additional item
+    elif total_items_purchased >= 2:
+        discount = 0.1  # 10% discount for two or more additional items
+
+    # Calculate the discounted price
+    discounted_price = total_price * (1 - discount)
+
+    # Output the final receipt with discounts
+    print("\n===== Final Receipt with Discounts =====")
+    print("\nChosen Main Items:")
+    # Output main items
+    print(f"Case: {chosen_case} - {case_descriptions[case_items.index(chosen_case)]}")
+    print(f"RAM: {chosen_ram} - {ram_descriptions[ram_items.index(chosen_ram)]}")
+    print(f"HDD: {chosen_hdd} - {hdd_descriptions[hdd_items.index(chosen_hdd)]}")
+
+    print("\nChosen Additional Items:")
+    # Output additional items
+    # ...
+
+    print(f"\nTotal Price (before discount): ${total_price:.2f}")
+    print(f"\nDiscount Applied: {discount * 100}%")
+    print(f"You saved ${total_price - discounted_price:.2f} with the discount!")
+    print(f"Final Price (after discount): ${discounted_price:.2f}")
+
+else:
+    print("\n===== Final Receipt =====")
+    print("\nChosen Items:")
+    # Output main items
+    print(f"Case: {chosen_case} - {case_descriptions[case_items.index(chosen_case)]}")
+    print(f"RAM: {chosen_ram} - {ram_descriptions[ram_items.index(chosen_ram)]}")
+    print(f"HDD: {chosen_hdd} - {hdd_descriptions[hdd_items.index(chosen_hdd)]}")
+    print(f"\nTotal Price: ${total_price:.2f}")
+
+print("\nThank you for shopping with us! Your order is complete.")
+
+
+                                                  # finished
+
+
+
