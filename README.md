@@ -297,3 +297,9 @@ $ docker run -it --rm ssl-checker -H twitter.com
 - Make print_status cleaner and smarter
 - Add certificate chain validation
 - Try to make the Docker Functionality effective and efficient
+
+
+
+
+
+Authorized by Abdul Basit
